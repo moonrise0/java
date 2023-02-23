@@ -5,7 +5,9 @@ import java.util.Scanner;
 public class P73 {
     
 	public static void main(String[] args) {
-		int a = 10;
+
+	  int a = 10;
+     String str = "";
 
 		Scanner sc = new Scanner(System.in);
 		System.out.println("명령을 입력하세요 (q,i,d,s)");
