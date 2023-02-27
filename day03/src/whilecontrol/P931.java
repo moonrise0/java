@@ -11,9 +11,11 @@ public class P931 {
 		int i = 1;
 		while (i <= 100) {
 			sum += i;
+			
 			 i++;
-		
+			
 		}
+		
 		avg = (sum*1.0)/ (i-1);
 		System.out.printf("%d, %f", sum, avg);
 		System.out.println("End..." + i);

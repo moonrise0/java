@@ -67,8 +67,7 @@ public class P84 {
 		
 		System.out.printf("%s, %s, %4.2f \n", grade, gender, sum); //string string 실수
 		
-		System.out.println("End....");
-    
+		System.out.println("End....");    
 	}
 	
     }

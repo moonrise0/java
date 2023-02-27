@@ -7,11 +7,12 @@ public class WS {
 		
 		int sum = 0;
 		double avg = 0.0;
+		int cnt = 0;
 		
 		System.out.println("Start...");
 	
 		
-		int cnt = 0;
+		
 		for (int i = 1; i <= 100; i++) {
 			if(i%3 == 0) {
 			sum += i;

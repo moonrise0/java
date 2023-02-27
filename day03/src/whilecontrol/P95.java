@@ -18,9 +18,9 @@ public class P95 {
 			cnt++;
 	
 			}
-			if(i == 80) {
-				break;
-		   }
+//			if(i == 80) {
+//				break;
+//		   }
 			i++; //일반적으로 지금 현재위치가 맞다.
 //			if(i == 80) {
 //				break; 값이달라짐.

@@ -6,9 +6,9 @@ public class P93 {
 		System.out.println("Start...");
         int i = 0 ;
 		while(i< 10){
-//			i++;
+			i++;
                  System.out.println(i);
-            i++; //위치차이 파악하기. 증감에 따라서 결과값이 달라질수 있다.
+//            i++; //위치차이 파악하기. 증감에 따라서 결과값이 달라질수 있다.
 		}
 		System.out.println("End..." +i );
 
