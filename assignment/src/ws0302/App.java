@@ -14,39 +14,29 @@ public class App {
 	 acc[5] = new Account("james6", 10000, 0.31, "VIP");
 	 
 	 
+	double sum = 0;
+	int cnt = 0;
+	
 	 for (Account a :acc ) {
 	     System.out.printf("accname:  %s \n" , a.getAccName());
 	     System.out.printf("balance: %f \n"  ,a.getBalance());
 	     System.out.printf("rate:  %f \n" ,a.getRate());
 	     System.out.printf("grade: %s \n", a.getGrade());
-	
-	        int sum = 0;
-			int cnt = 0;
+	     if (a.getGrade().equals("VIP")) {
+				sum += a.getBalance();
+				cnt++;
+	     }
+	        
 	 }
 		
-	 for (Account a :acc ) {
-	     System.out.printf("accname:  %s \n" , a.getAccName());
-	     System.out.printf("balance: %f \n"  ,a.getBalance());
-	     System.out.printf("rate:  %f \n" ,a.getRate());
-	     System.out.printf("grade: %s \n", a.getGrade());
 	
-	        int sum = 0;
-			int cnt = 0;
-	 
-
-	 
-			for (int i = 0; i < acc.length; i++) {
-				if (acc.equals("VIP")) {
-					sum += a.getBalance();
-					cnt++;
-				}
 				
-				System.out.printf("vip잔액의 합 %s" , sum);
+				System.out.printf("vip 잔액 합 %4.2f", sum);
 				System.out.printf("vip 잔액 평균 %f", (double) sum / cnt );
-			}
+			
 	
 			
 	     
 		
-	 }
+	 
 	}}
