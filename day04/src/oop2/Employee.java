@@ -40,7 +40,7 @@ public class Employee {
 		this.name = name;
 	}
 
-	public int getSalary() {
+	public int getSalary() { //app에서 받으려면,
 		return salary;
 	}
 
