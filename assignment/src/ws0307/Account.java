@@ -62,7 +62,7 @@ public class Account {
 		if (money <= 0) {
 			throw new MinusException("금액 오류");
 		}
-		this.balance += money;
+		balance += money; //this. 해야하는지
 	}
 	
 	
@@ -71,9 +71,9 @@ public class Account {
 		if (money <= 0) {
 			throw new MinusException("금액 오류");
 		}
-		if (this.balance < money) {
-			throw new BalanceException("잔액오류: " + (balance-= money) + "원이 부족합니다.");
+		if (balance < money) {
+			throw new BalanceException("잔액오류: " + (balance-= money) + "원이 부족합니다.");//순서?
 		}
-		this.balance -= money;
+		balance -= money;
 	}
 }
