@@ -10,47 +10,40 @@ import com.kbstar.frame.CRUDService;
 import com.kbstar.noti.NotificationImpl;
 
 public class AccountService implements CRUDService<String, AccountDTO>{
-	
-	
-	DAO<String, AccountDTO> accDao;
 
+	DAO<String, AccountDTO> accDao;
+	Notification notification;
 	
 	public AccountService() {
-		accDao= new AccountDAO();
-	
+		accDao = new AccountDAO();
+		notification = new NotificationImpl();
 	}
 	
-
 	@Override
 	public void register(AccountDTO v) throws Exception {
-		
 		try {
-		    accDao.insert(v);
-		}catch (Exception e) {
-			throw new Exception("계좌 개설이 실패하였습니다.");
-		}
+			accDao.insert(v);
+		}catch(Exception e) {
+			throw new Exception("계좌 생성이 실패 하였습니다.(EX0001)");
+		}	
 	}
 
 	@Override
 	public void remove(String k) throws Exception {
-		
 		try {
 			accDao.delete(k);
-			
-		     
 		}catch(Exception e) {
-			throw new Exception("개설 해지오류입니다");
-		}
+			throw new Exception("계좌 삭제가 실패 하였습니다.(EX0001)");
+		}	
 	}
 
 	@Override
 	public void modify(AccountDTO v) throws Exception {
-	  
-	   try {
-		   accDao.update(v );
-	   }catch(Exception e) {
-		   throw new Exception("수정오류입니다.");
-	   }
+		try {
+			accDao.update(v);
+		}catch(Exception e) {
+			throw new Exception("계좌 수정이 실패 하였습니다.(EX0001)");
+		}	
 	}
 
 	@Override
@@ -58,19 +51,13 @@ public class AccountService implements CRUDService<String, AccountDTO>{
 		AccountDTO obj = null;
 		obj = accDao.select(k);
 		return obj;
-		
 	}
 
 	@Override
 	public List<AccountDTO> get() throws Exception {
-		
-		List<AccountDTO>list = null;
-		try {
-		list = accDao.select(); 
-		}catch(Exception e) {
-			throw new Exception ("오류");
-		}
+		List<AccountDTO> list = null;
+		list = accDao.select();
 		return list;
 	}
-
+	
 }
