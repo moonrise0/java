@@ -3,61 +3,85 @@ package ws0309;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Lotto {
-    
-    private HashSet<Integer> winningNum; // 당첨번호
-    private double prizeMoney; // 당첨금액
-    
-    // 생성자
+    private HashSet<Integer> winningNum;
+    private double prizeMoney;
+
     public Lotto() {
-        this.winningNum = new HashSet<Integer>();
-        this.prizeMoney = 0.0;
+        winningNum = new HashSet<Integer>();
+        prizeMoney = 0;
     }
-    
-    // 당첨 번호와 당첨 금액을 생성하는 함수
+
+    // 당첨 번호와 당첨금을 생성
     public void makeWinningNumberMoney() {
         Random random = new Random();
         while (winningNum.size() < 3) {
-            int num = random.nextInt(25) + 1;
-            winningNum.add(num);
+            winningNum.add(random.nextInt(25) + 1);
         }
         prizeMoney = random.nextDouble() * 2000000000;
     }
-    
-    // 내가 선택한 숫자와 당첨 번호를 비교하여 등수를 반환하는 함수
-    public int checkRanking(ArrayList<Integer> myNum) {
-        int matchCount = 0;
-        for (int num : myNum) {
-            if (winningNum.contains(num)) {
-                matchCount++;
-            }
-        }
-     
-        if (matchCount == 3) {
-            return 1;
-        } else if (matchCount == 2) {
-            return 2;
-        } else if (matchCount == 1) {
-            return 3;
-        } else {
-            return -1; // 꽝
-        }
-    }
-    
-    // 등수 정보를 입력하면 당첨 금액을 반환하는 함수
+
+    // 등수 정보를 입력 하면 당첨 금액을 리턴 후 화면에 표시
     public double prizeMoney(int grade) {
-        // 등수에 따른 당첨금 비율은 자유롭게 설정 가능
+        double money = 0;
         switch (grade) {
             case 1:
-                return prizeMoney * 0.7;
+                money = prizeMoney;
+                break;
             case 2:
-                return prizeMoney * 0.2;
+                money = prizeMoney * 0.7;
+                break;
             case 3:
-                return prizeMoney * 0.1;
+                money = prizeMoney * 0.5;
+                break;
             default:
-                return 0.0; // 꽝
+                money = 0;
         }
+        System.out.println("당첨금액은 " + money + "원 입니다.");
+        return money;
     }
-    
+
+    // 입력한 숫자 3개를 argument로 입력 하면 몇개가 일치한지를 check 한후 등수를 리턴
+    public int checkRanking(ArrayList<Integer> myNum) {
+        int count = 0;
+        for (int num : myNum) {
+            if (winningNum.contains(num)) {
+                count++;
+            }
+        }
+        int grade = 0;
+        switch (count) {
+            case 3:
+                grade = 1;
+                break;
+            case 2:
+                grade = 2;
+                break;
+            case 1:
+                grade = 3;
+                break;
+            default:
+                grade = 0;
+        }
+        return grade;
+    }
+
+    public static void main(String[] args) {
+        Lotto game = new Lotto();
+        game.makeWinningNumberMoney();
+
+        // 테스트를 위한 입력 코드
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("1~25 사이의 숫자 3개를 입력하세요.");
+        ArrayList<Integer> myNum = new ArrayList<Integer>();
+        for (int i = 0; i < 3; i++) {
+            int num = scanner.nextInt();
+            myNum.add(num);
+        }
+
+        int grade = game.checkRanking(myNum);
+        game.prizeMoney(grade);
+    }
 }
