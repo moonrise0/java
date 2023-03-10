@@ -6,8 +6,8 @@ import java.util.Random;
 
 public class Lotto {
     
-    private HashSet<Integer> winningNum;
-    private double prizeMoney;
+    private HashSet<Integer> winningNum; // 당첨번호
+    private double prizeMoney; // 당첨금액
     
     // 생성자
     public Lotto() {
@@ -33,7 +33,7 @@ public class Lotto {
                 matchCount++;
             }
         }
-        // 등수는 자유롭게 설정 가능
+     
         if (matchCount == 3) {
             return 1;
         } else if (matchCount == 2) {
