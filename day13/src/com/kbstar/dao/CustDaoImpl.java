@@ -27,39 +27,22 @@ public class CustDaoImpl implements DAO<String, String, Cust> {
 		System.out.println("Driver Loading 성공!");
 	}
 
-	public Connection getConnection() throws Exception {
-		// 자체함수 만든 것. 커넥션을 만들어서 밑에 줄게 (desert insert이런데)
-		java.sql.Connection con = null;
-
-		Properties props = new Properties();
-		String fileName = "db_info.txt";
-		FileInputStream in = new FileInputStream(fileName);
-		props.load(in);
-
-		String id = props.getProperty("DB_ID");
-		String pwd = props.getProperty("DB_PWD");
-		String url = props.getProperty("DB_URL");
-		con = DriverManager.getConnection(url, id, pwd);
-		return con;
-
-	}
-
-	@Override
-	public void insert(Cust v) throws Exception {
-
-		try (Connection con = getConnection(); PreparedStatement pstmt = con.prepareStatement(Sql.insertSql);) {
-			pstmt.setString(1, v.getId());
-			pstmt.setString(2, v.getPwd());
-			pstmt.setString(3, v.getName());
-			pstmt.setInt(4, v.getAge());
-			int result = pstmt.executeUpdate();
-
-		} catch (SQLException e1) {
-			throw e1;
-
-		}
-
-	}
+//	@Override
+//	public void insert(Cust v) throws Exception {
+//
+//		try (Connection con = getConnection(); PreparedStatement pstmt = con.prepareStatement(Sql.insertSql);) {
+//			pstmt.setString(1, v.getId());
+//			pstmt.setString(2, v.getPwd());
+//			pstmt.setString(3, v.getName());
+//			pstmt.setInt(4, v.getAge());
+//			int result = pstmt.executeUpdate();
+//
+//		} catch (SQLException e1) {
+//			throw e1;
+//
+//		}
+//
+//	}
 
 	@Override
 	public void delete(String k) throws Exception {
@@ -81,8 +64,7 @@ public class CustDaoImpl implements DAO<String, String, Cust> {
 
 	@Override
 	public void update(Cust v) throws Exception {
-		try (Connection con = getConnection(); 
-		PreparedStatement pstmt = con.prepareStatement(Sql.updateSql);) {
+		try (Connection con = getConnection(); PreparedStatement pstmt = con.prepareStatement(Sql.updateSql);) {
 			pstmt.setString(1, v.getPwd());
 			pstmt.setString(2, v.getName());
 			pstmt.setInt(3, v.getAge());
@@ -105,56 +87,53 @@ public class CustDaoImpl implements DAO<String, String, Cust> {
 	@Override
 	public Cust select(String k) throws Exception {
 		Cust cust = null;
-		try(Connection con = getConnection(); 
-				PreparedStatement pstmt = con.prepareStatement(Sql.selectSql);) {
-			pstmt.setString(1, k); //물음표가 있었기에   밑에 selectall에는 안되서 바로 가져옴.
-			
-			try(ResultSet rset = pstmt.executeQuery()){
+		try (Connection con = getConnection(); PreparedStatement pstmt = con.prepareStatement(Sql.selectSql);) {
+			pstmt.setString(1, k); // 물음표가 있었기에 밑에 selectall에는 안되서 바로 가져옴.
+
+			try (ResultSet rset = pstmt.executeQuery()) {
 				rset.next();
 				String id = rset.getString("id");
 				String pwd = rset.getString("pwd");
 				String name = rset.getString("name");
 				int age = rset.getInt("age");
 				cust = new Cust(id, pwd, name, age);
-				 
-			}catch(Exception e) {
+
+			} catch (Exception e) {
 				throw e;
 				// e.printStackTrace();
 			}
 
 		} catch (Exception e) {
-			throw e; //서비스의  cust get으로 감!
+			throw e; // 서비스의 cust get으로 감!
 //			e.printStackTrace(); //네트워크 문제일때
-		} 
+		}
 		return cust;
 	}
-
 
 	@Override
 	public List<Cust> selectAll() throws Exception {
 		List<Cust> list = new ArrayList<>();
-        try(Connection con = getConnection(); //네트워크 문제
-        		PreparedStatement pstmt = con.prepareStatement(Sql.selectAllSql))  { 
-          try(ResultSet rset = pstmt.executeQuery();){
-        	 
-        	  while(rset.next()) {
-        		    Cust cust = null;
-        			String id = rset.getString("id");
-    				String pwd = rset.getString("pwd");
-    				String name = rset.getString("name");
-    				int age = rset.getInt("age");
-    				cust = new Cust(id, pwd, name, age);
-    				list.add(cust); //만들어서 list에 넣고
-        	  }
-        		  
-        		  //데이터가 없을때까지 while로 꺼낸다.
-          }
-        
-	    }catch(Exception e){
-	    
-	   
-		
-	    }
+		try (Connection con = getConnection(); // 네트워크 문제
+				PreparedStatement pstmt = con.prepareStatement(Sql.selectAllSql)) {
+			try (ResultSet rset = pstmt.executeQuery();) {
+
+				while (rset.next()) {
+					Cust cust = null;
+					String id = rset.getString("id");
+					String pwd = rset.getString("pwd");
+					String name = rset.getString("name");
+					int age = rset.getInt("age");
+					cust = new Cust(id, pwd, name, age);
+					list.add(cust); // 만들어서 list에 넣고
+				}
+
+				// 데이터가 없을때까지 while로 꺼낸다.
+			}
+
+		} catch (Exception e) {
+			throw e;
+
+		}
 		return list;
 	}
 
@@ -162,6 +141,12 @@ public class CustDaoImpl implements DAO<String, String, Cust> {
 	public List<Cust> search(String k) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+
+	}
+
+	@Override
+	public void insert(Cust v) throws Exception {
+		// TODO Auto-generated method stub
 
 	}
 }

@@ -1,6 +1,10 @@
 package com.kbstar.frame;
 
+import java.io.FileInputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.List;
+import java.util.Properties;
 
 public interface DAO<K1, K2, V> {
 	public void insert(V v) throws Exception;
@@ -12,5 +16,27 @@ public interface DAO<K1, K2, V> {
 	
 	
 	public List<V> search(K2 k) throws Exception;
+	
+	
+	
+	public default Connection getConnection() throws Exception { //default를 넣는 이유.
+		// 자체함수 만든 것. 커넥션을 만들어서 밑에 줄게 (desert insert이런데)
+		java.sql.Connection con = null;
 
+		Properties props = new Properties();
+		String fileName = "db_info.txt";
+		FileInputStream in = new FileInputStream(fileName);
+		props.load(in);
+
+		String id = props.getProperty("DB_ID");
+		String pwd = props.getProperty("DB_PWD");
+		String url = props.getProperty("DB_URL");
+		con = DriverManager.getConnection(url, id, pwd);
+		return con;
+
+	}
+	
+	
+	
+	
 }
