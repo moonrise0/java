@@ -31,8 +31,9 @@ public class App {
 		
 	
 				
-				System.out.printf("vip 잔액 합 %4.2f", sum);
-				System.out.printf("vip 잔액 평균 %f", (double) sum / cnt );
+				System.out.printf("vip 잔액 합 %4.2f", sum );
+				System.out.println();
+				System.out.printf("vip 잔액 평균 %f \n" ,  sum / cnt );
 			
 	
 			

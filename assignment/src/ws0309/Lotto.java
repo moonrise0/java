@@ -24,22 +24,22 @@ public class Lotto {
     }
 
     // 등수 정보를 입력 하면 당첨 금액을 리턴 후 화면에 표시
-    public double prizeMoney(int grade) {
-        double money = 0;
+    public int prizeMoney(int grade) {
+        int money = 0;
         switch (grade) {
             case 1:
-                money = prizeMoney;
+                money = (int)(prizeMoney);
                 break;
             case 2:
-                money = prizeMoney * 0.7;
+                money = (int)(prizeMoney * 0.2);
                 break;
             case 3:
-                money = prizeMoney * 0.5;
+                money = (int)(prizeMoney * 0.4);
                 break;
             default:
                 money = 0;
         }
-        System.out.printf("당첨금액은 " + money + "원 입니다.");
+        System.out.println("당첨금액은 " + money + "원 입니다.");
         return money;
     }
 
